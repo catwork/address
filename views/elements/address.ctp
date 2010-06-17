@@ -23,7 +23,7 @@ if (!empty($header)) {
   <?php
 }
 
-$javascript->link(array('/address/address_zipcodes/formjs/1'), false);
+$javascript->link(array('/address/address_zipcodes/elementjs/1'), false);
 
 $scope = !empty($scope) ? $scope . '.' : '';
 
