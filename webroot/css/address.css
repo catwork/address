@@ -1,0 +1,36 @@
+.address-form {
+
+}
+
+.address-form div {
+  clear: none;
+  display: block;
+  float: left;
+}
+
+.address-number-input {
+  width: 5em;
+}
+
+.address-zipcode-input {
+  width: 6em;
+}
+
+.address-street-input, .address-more-input, .address-neighborhood-input {
+  width: 20em;
+}
+
+.address-country-input-wrapper, .address-neighborhood-input-wrapper, .address-street-input-wrapper {
+  clear: left !important;
+}
+
+.address-state-input {
+  width: 2em;
+}
+
+.address-zipcode-input-wrapper {
+}
+
+.address-clickable {
+  cursor: pointer;
+}
