@@ -20,22 +20,17 @@ class AddressZipcodesController extends AddressAppController {
 
       if (preg_match('/^\d\d\d\d\d\d\d\d$/', $searchNoHiphen)) {
 
-        $this -> searchOptions = array(
-                         'conditions' => array('AddressZipcode.postal_code' => $search)
-        );
+        $searchOptions = array('conditions' => array('OR' => array(
+                                                                       array('AddressZipcode.postal_code' => $search),
+                                                                       array('AddressZipcode.postal_code' => $searchNoHiphen))
+                                                            ));
 
         $this -> AddressZipcode -> contain('City.name', 'City.State.abbreviation', 'Neighborhood.name');
-        $zipcode = $this -> AddressZipcode -> find('first',  $this -> searchOptions);
-
-        if ($zipcode == false) {
-          $this -> searchOptions['conditions']['AddressZipcode.postal_code'] = $searchNoHiphen;
-          $this -> AddressZipcode -> contain('City.name', 'City.State.abbreviation', 'Neighborhood.name');
-          $zipcode = $this -> AddressZipcode -> find('first',  $this -> searchOptions);
+        $zipcode = $this -> AddressZipcode -> find('first',  $searchOptions);
 
           if ($zipcode == false) {
             $zipcode = $this -> thirdPartySearch($search);
           }
-        }
       }
     }
 
