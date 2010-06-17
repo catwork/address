@@ -35,7 +35,7 @@
       <td class="actions">
           <?php echo $html->link(__('View', true), array('action'=>'view', $zipcode['AddressZipcode']['id'])); ?>
           <?php echo $html->link(__('Edit', true), array('action'=>'edit', $zipcode['AddressZipcode']['id'])); ?>
-          <?php echo $html->link(__('Delete', true), array('action'=>'delete', $zipcode['AddressZipcode']['id']), null, sprintf(__('Are you sure you want to delete %s?', true), $zipcode['AddressZipcode']['postal_code'])); ?>
+          <?php echo $html->link(__('Delete', true), array('action'=>'delete', $zipcode['AddressZipcode']['id']), null, sprintf(__('Você está certo de que deseja remover o CEP "%s"?', true), $zipcode['AddressZipcode']['postal_code'])); ?>
       </td>
     </tr>
     <?php endforeach; ?>

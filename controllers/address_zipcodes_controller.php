@@ -35,11 +35,12 @@ class AddressZipcodesController extends AddressAppController {
   }
 
   function view($id = null) {
-
     if (!$id) {
       $this->Session->setFlash(__('Invalid Zipcode.', true),'flash_erro');
       $this->redirect(array('action'=>'index'));
     }
+
+    $this->AddressZipcode->contain('Neighborhood.name', 'City.State.name', 'City.name', 'City.State.Country.name');
     $this->set('zipcode', $this->AddressZipcode->read(null, $id));
   }
 
