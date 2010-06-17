@@ -25,10 +25,10 @@ $(function(){
         }
         
         addressSearchCepTriggerCurrentParent.find('[name*=zipcode_id]').val(data.AddressZipcode.id);
-        addressSearchCepTriggerCurrentParent.find('.address-address-city-input').val(data.City.name);
-        addressSearchCepTriggerCurrentParent.find('.address-address-state-input').val(data.City.State.abbreviation);
-        addressSearchCepTriggerCurrentParent.find('.address-address-neighborhood-input').val(data.Neighborhood.name);
-        addressSearchCepTriggerCurrentParent.find('.address-address-street-input').val(data.AddressZipcode.street);
+        addressSearchCepTriggerCurrentParent.find('.address-city-input').val(data.City.name);
+        addressSearchCepTriggerCurrentParent.find('.address-state-input').val(data.City.State.abbreviation);
+        addressSearchCepTriggerCurrentParent.find('.address-neighborhood-input').val(data.Neighborhood.name);
+        addressSearchCepTriggerCurrentParent.find('.address-street-input').val(data.AddressZipcode.street);
       });
     }
     else {
