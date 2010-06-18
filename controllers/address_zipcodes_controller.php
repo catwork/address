@@ -131,9 +131,11 @@ class AddressZipcodesController extends AddressAppController {
     if (empty($cepKH))
       return array();
 
+    var_dump($cepKH);
+
     $resultadoDaConsulta = (string) $cepKH -> resultado_txt;
 
-    if ($resultadoDaConsulta == 'sucesso - cep completo') { // acho que o WS da kinghost retorna > 0 em casos de sucesso :D
+    if ($resultadoDaConsulta == 'sucesso - cep completo' ||$resultadoDaConsulta == 'sucesso - cep único' ) { // acho que o WS da kinghost retorna > 0 em casos de sucesso :D
       $neighborhoodName = (string) $cepKH -> bairro;
       $cityName = (string) $cepKH -> cidade;
       $stateAbbrev = (string) $cepKH -> uf;
@@ -161,13 +163,16 @@ class AddressZipcodesController extends AddressAppController {
       // fatal error
       return array();
     }
-    
+
     $this -> AddressZipcode -> City -> recursive = -1;
     $city = $this -> AddressZipcode -> City -> find('first', array('conditions' => array( 'state_id' => $state['State']['id'],
                                                                                           'City.name' => trim($cityName))));
 
     if (empty($city['City']['id'])) {
-      // saving new city
+      $this -> AddressZipcode -> City -> create();
+      $city = $this -> AddressZipcode -> City -> save(array('name' => $cityName,
+                                                                    'state_id' => $state['State']['id']
+      ));
     }
 
     $neighborhoodId = '';
@@ -175,12 +180,12 @@ class AddressZipcodesController extends AddressAppController {
     if (!empty($neighborhoodName)) {
       $this -> AddressZipcode -> Neighborhood -> recursive = -1;
       $neighborhood = $this -> AddressZipcode -> Neighborhood -> find('first', array('conditions' => array( 'city_id' => $city['City']['id'],
-                                                                                                            'Neighborhood.name' => $neighborhoodName)));
+                                                                                                            'Neighborhood.name' => trim($neighborhoodName))));
 
       if (empty($neighborhood['Neighborhood']['id'])) {
         $this -> AddressZipcode -> Neighborhood -> create();
         $neighborhood = $this -> AddressZipcode -> Neighborhood -> save(array('name' => $neighborhoodName,
-                                                              'city_id' => $city['City']['id']
+                                                                              'city_id' => $city['City']['id']
         ));
       }
 
