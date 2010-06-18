@@ -7,9 +7,21 @@ h2. Pré-requisitos
 h2. Principais funcionalidades:
 
 * Elemento para busca de endereço na base de dados.
+* Elemento para view de endereço
 * Add, Edit, View e Delete de CEPs
 * Schemas bancos de dados tanto em SQL (mysql) quanto em "migration":http://github.com/jrbasso/migrations
 
 h2. Instruções gerais
+
+h3. Elemento para view
+
+<pre>
+<?= $this->element('address_view', array('address' => $client['Address'],
+                                         'asFieldset' => true,
+			                                   'i' => $i,
+				                                 'class' => $class,
+				                                 'plugin' => 'Address')) ?>
+</pre>
+
 
 Copie todos os arquivos deste repositório para app/plugins/address.
