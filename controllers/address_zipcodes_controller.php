@@ -1,6 +1,9 @@
 <?php
 class AddressZipcodesController extends AddressAppController {
   var $name = 'AddressZipcodes';
+  var $components = array('Address.KinghostCurl');
+
+  var $searchOptions;
   
   public function index() {
     $this -> AddressZipcode -> recursive = 3;
@@ -17,13 +20,13 @@ class AddressZipcodesController extends AddressAppController {
 
       if (preg_match('/^\d\d\d\d\d\d\d\d$/', $searchNoHiphen)) {
 
-        $searchOptions = array('conditions' => array('OR' => array(
+        $this -> searchOptions = array('conditions' => array('OR' => array(
                                                                        array('AddressZipcode.postal_code' => $search),
                                                                        array('AddressZipcode.postal_code' => $searchNoHiphen))
                                                             ));
 
-        $this -> AddressZipcode -> contain('City.name', 'City.State.abbreviation', 'Neighborhood.name');
-        $zipcode = $this -> AddressZipcode -> find('first',  $searchOptions);
+        $this -> setSearchZipcodeContain();
+        $zipcode = $this -> AddressZipcode -> find('first',  $this -> searchOptions);
 
           if ($zipcode == false) {
             $zipcode = $this -> thirdPartySearch($search);
@@ -101,8 +104,101 @@ class AddressZipcodesController extends AddressAppController {
     }
   }
 
-  function thirdPartySearch($zipcode) {
-    return array();
+  function thirdPartySearch($zipcode, $options = array()) {
+    $default = array('republicavirtual' => true);
+
+    $options = array_merge($default, $options);
+
+    if ($options['republicavirtual']) {
+      $this -> KinghostCurl = new KinghostCurlComponent();
+      return $this -> doXmlZipcodeSearch($zipcode);
+    }
+    else
+      return array();
+  }
+
+  function doXmlZipcodeSearch($zipcode) {
+    $url = "http://cep.republicavirtual.com.br/web_cep.php?cep=$zipcode&formato=xml";
+
+    $this -> KinghostCurl = new KinghostCurlComponent();
+    $result = $this -> KinghostCurl -> get($url);
+
+    if (empty($result))
+      return array();
+    
+    $cepKH = simplexml_load_string($result);
+
+    if (empty($cepKH))
+      return array();
+
+    $resultadoDaConsulta = (string) $cepKH -> resultado_txt;
+
+    if ($resultadoDaConsulta == 'sucesso - cep completo') { // acho que o WS da kinghost retorna > 0 em casos de sucesso :D
+      $neighborhoodName = (string) $cepKH -> bairro;
+      $cityName = (string) $cepKH -> cidade;
+      $stateAbbrev = (string) $cepKH -> uf;
+      $streetName = '';
+
+      if ($cepKH -> tipo_logradouro && $cepKH -> logradouro)
+        $streetName = ((string) $cepKH -> tipo_logradouro) . ' ' . ((string) $cepKH -> logradouro);
+
+      return $this -> saveZipcode($zipcode, $stateAbbrev, $cityName, $neighborhoodName, $streetName);
+    }
+    else
+      return array();
+  }
+
+  function saveZipcode($zipcode, $stateAbbrev, $cityName, $neighborhoodName = '', $streetName = '') {
+
+    if (empty($stateAbbrev) || empty($cityName)) {
+      return array();
+    }
+
+    $this -> AddressZipcode -> City -> State -> recursive = -1;
+    $state = $this -> AddressZipcode -> City -> State -> findByAbbreviation($stateAbbrev);
+    
+    if (empty($state['State']['id'])) {
+      // fatal error
+      return array();
+    }
+    
+    $this -> AddressZipcode -> City -> recursive = -1;
+    $city = $this -> AddressZipcode -> City -> find('first', array('conditions' => array( 'state_id' => $state['State']['id'],
+                                                                                          'City.name' => trim($cityName))));
+
+    if (empty($city['City']['id'])) {
+      // saving new city
+    }
+
+    $neighborhoodId = '';
+    
+    if (!empty($neighborhoodName)) {
+      $this -> AddressZipcode -> Neighborhood -> recursive = -1;
+      $neighborhood = $this -> AddressZipcode -> Neighborhood -> find('first', array('conditions' => array( 'city_id' => $city['City']['id'],
+                                                                                                            'Neighborhood.name' => $neighborhoodName)));
+
+      if (empty($neighborhood['Neighborhood']['id'])) {
+        $this -> AddressZipcode -> Neighborhood -> create();
+        $neighborhood = $this -> AddressZipcode -> Neighborhood -> save(array('name' => $neighborhoodName,
+                                                              'city_id' => $city['City']['id']
+        ));
+      }
+
+      $neighborhoodId = $neighborhood['Neighborhood']['id'];
+    }
+
+    $this -> AddressZipcode -> create();
+
+    $this -> AddressZipcode -> save(array('street' => $streetName,
+                                          'city_id' => $city['City']['id'],
+                                          'neighborhood_id' => $neighborhoodId,
+                                          'postal_code' => $zipcode
+    ));
+
+    $this -> setSearchZipcodeContain();
+    $zipcode = $this -> AddressZipcode -> find('first',  $this -> searchOptions);
+
+    return $zipcode ? $zipcode : array();
   }
 
   public function getneighborhoods($cityId = null) {
@@ -127,6 +223,10 @@ class AddressZipcodesController extends AddressAppController {
     
     $this -> set('items', $items);
     $this -> render('search');
+  }
+
+  public function setSearchZipcodeContain() {
+    $this -> AddressZipcode -> contain('City.name', 'City.State.abbreviation', 'Neighborhood.name');
   }
 }
 ?>
