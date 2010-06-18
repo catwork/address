@@ -1,8 +1,9 @@
 h1. Plugin para o gerenciamento de endereços no CakePHP
 
+
 h2. Pré-requisitos
 
-* Para que o elemento funcione é preciso que o jquery e o plugin "maskedInput":http://digitalbush.com/projects/masked-input-plugin/ (também do jquery) estejam no projeto.
+* Para que o elemento de busca (add/edit) funcione é preciso que o jquery e o plugin "maskedInput":http://digitalbush.com/projects/masked-input-plugin/ (também do jquery) estejam no projeto.
 
 h2. Principais funcionalidades:
 
@@ -12,6 +13,8 @@ h2. Principais funcionalidades:
 * Schemas bancos de dados tanto em SQL (mysql) quanto em "migration":http://github.com/jrbasso/migrations
 
 h2. Instruções gerais
+
+Copie todos os arquivos deste repositório para app/plugins/address.
 
 h3. Elemento para view
 
@@ -24,4 +27,3 @@ h3. Elemento para view
 </pre>
 
 
-Copie todos os arquivos deste repositório para app/plugins/address.
