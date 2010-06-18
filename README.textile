@@ -16,11 +16,11 @@ h2. Instruções gerais
 h3. Elemento para view
 
 <pre>
-<?= $this->element('address_view', array(	'address' => $client['Address'],
-																					'asFieldset' => true,
-																					'i' => $i,
-																					'class' => $class,
-																					'plugin' => 'Address')) ?>
+<?= $this->element('address_view', array( 'address' => $client['Address'],
+                                          'asFieldset' => true,
+                                          'i' => $i,
+                                          'class' => $class,
+                                          'plugin' => 'Address')) ?>
 </pre>
 
 
