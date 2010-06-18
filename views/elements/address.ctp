@@ -44,10 +44,13 @@ echo '<span class="address-clickable address-search-cep-trigger">' . $html -> im
                                                   'title' => 'Buscar CEP',
                                                   'alt' => 'Buscar CEP')) . '</span>';
 
+$countries = $this->requestAction('address/address_countries/get');
+
 echo $form -> input($scope . 'Address.Zipcode.Country.id', array( 'label' => 'País',
                                                                   'class' => "address-country-input $requiredClasses",
+                                                                  'options' => $countries,
                                                                   'div' => 'address-country-input-wrapper'
-                   ));
+));
 
 echo $form -> input($scope . 'Address.Zipcode.City.name', array('type' => 'text', 'readonly' => true, 'label' => 'Cidade', 'class' => "address-city-input $requiredClasses"));
 echo $form -> input($scope . 'Address.Zipcode.State.abbreviation', array('type' => 'text', 'readonly' => true, 'label' => 'Estado', 'class' => "address-state-input $requiredClasses"));
