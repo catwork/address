@@ -5,7 +5,6 @@ class AddressCountry extends AppModel {
   
 	var $validate = array(
 		'name' => array('notempty'),
-		'abbreviation' => array('notempty'),
 	);
 
   var $hasMany = array( 'State' => array( 'className' => 'Address.AddressState',

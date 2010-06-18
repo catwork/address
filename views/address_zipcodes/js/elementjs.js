@@ -7,7 +7,7 @@ $zipcodeSearchUrl = $html->url(array('controller' => 'address_zipcodes', 'action
 $(function(){
   $('.address-zipcode-input').mask('99999-999');
 
-  $('span.address-search-cep-trigger').click(function() {
+  $('.address-search-cep-trigger').click(function() {
     addressSearchCepTriggerCurrentParent = $(this).parent();
 
     var search = addressSearchCepTriggerCurrentParent.find('.address-zipcode-input').val();

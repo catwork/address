@@ -34,3 +34,8 @@
 .address-clickable {
   cursor: pointer;
 }
+
+.address-search-cep-trigger {
+  position:relative;
+  top:25px;
+}

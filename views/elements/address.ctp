@@ -40,9 +40,9 @@ echo $form->input($scope. 'Address.Zipcode.postal_code', array(
 
 $cepSearchTriggerImg = !empty($cepSearchImg) ? $cepSearchImg : '/address/img/search.png';
 
-echo '<span class="address-clickable address-search-cep-trigger">' . $html -> image($cepSearchTriggerImg, array('class' => 'address-clickable',
+echo $html -> image($cepSearchTriggerImg, array('class' => 'address-clickable address-search-cep-trigger',
                                                   'title' => 'Buscar CEP',
-                                                  'alt' => 'Buscar CEP')) . '</span>';
+                                                  'alt' => 'Buscar CEP'));
 
 $countries = $this->requestAction('address/address_countries/get');
 
