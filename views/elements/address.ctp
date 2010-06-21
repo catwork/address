@@ -3,9 +3,11 @@
 $useDefaulCSS = isset($useDefaulCSS) ? $useDefaulCSS : true;
 $header = isset($header) ? $header : 'Localização';
 $required = isset($required) ? $required : true;
+$divClasses = '';
 
 if ($required) {
   $requiredClasses = ' required ';
+  $divClasses = 'required';
 }
 
 if ($useDefaulCSS) {
@@ -34,7 +36,7 @@ echo $form -> input($scope. 'Address.zipcode_id', array('type' => 'hidden'));
 echo $form->input($scope. 'Address.Zipcode.postal_code', array(
   'label' => 'CEP',
   'class' => "address-zipcode-input $requiredClasses",
-  'div' => 'address-zipcode-input-wrapper',
+  'div' => "address-zipcode-input-wrapper $divClasses",
   'label' => 'CEP',
 ));
 
@@ -46,37 +48,56 @@ echo $html -> image($cepSearchTriggerImg, array('class' => 'address-clickable ad
 
 $countries = $this->requestAction('address/address_countries/get');
 
-echo $form -> input($scope . 'Address.Zipcode.Country.id', array( 'label' => 'País',
-                                                                  'class' => "address-country-input $requiredClasses",
-                                                                  'options' => $countries,
-                                                                  'div' => 'address-country-input-wrapper'
+echo $form -> input($scope . 'Address.Zipcode.City.State.Country.id', array(
+  'label' => 'País',
+  'options' => $countries,
+  'class' => "address-country-input $requiredClasses",
+  'div' => "address-country-input-wrapper $divClasses"
 ));
 
-echo $form -> input($scope . 'Address.Zipcode.City.name', array('type' => 'text', 'readonly' => true, 'label' => 'Cidade', 'class' => "address-city-input $requiredClasses"));
-echo $form -> input($scope . 'Address.Zipcode.State.abbreviation', array('type' => 'text', 'readonly' => true, 'label' => 'Estado', 'class' => "address-state-input $requiredClasses"));
+echo $form -> input($scope . 'Address.Zipcode.City.name', array(
+  'type' => 'text',
+  'readonly' => true,
+  'label' => 'Cidade',
+  'class' => "address-city-input $requiredClasses",
+  'div' => "address-city-input-wrapper $divClasses"
+));
+
+echo $form -> input($scope . 'Address.Zipcode.City.State.abbreviation', array(
+  'type' => 'text',
+  'readonly' => true,
+  'label' => 'Estado',
+  'class' => "address-state-input $requiredClasses",
+  'div' => "address-state-input-wrapper $divClasses"
+));
 
 echo $form -> input($scope . 'Address.Zipcode.Neighborhood.name', array(
   'readonly' => true,
   'type' => 'text',
   'label' => 'Bairro',
   'class' => "address-neighborhood-input $requiredClasses",
-  'div' => 'address-neighborhood-input-wrapper'
+  'div' => "address-neighborhood-input-wrapper $divClasses"
 ));
 
 echo $form->input($scope . 'Address.Zipcode.street', array(
   'class' => "address-street-input $requiredClasses ",
   'readonly' => true,
   'label' => 'Logradouro',
-  'div' => 'address-street-input-wrapper'
+  'div' => "address-street-input-wrapper $divClasses"
 ));
 
 echo $form->input($scope . 'Address.number', array(
         'label' => "Nº",
-        'class' => "address-number-input $requiredClasses ",
+        'class' => "address-number-input",
+        'div' => "address-number-input-wrapper",
         'label' => 'Número'
      ));
 
-echo $form->input($scope . 'Address.more', array('label' => 'Complemento', 'class' => "address-more-input $requiredClasses"));
+echo $form->input($scope . 'Address.more', array(
+  'label' => 'Complemento',
+  'class' => "address-more-input",
+  'div' => "address-more-input-wrapper"
+));
 
 ?>
 

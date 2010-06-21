@@ -131,8 +131,6 @@ class AddressZipcodesController extends AddressAppController {
     if (empty($cepKH))
       return array();
 
-    var_dump($cepKH);
-
     $resultadoDaConsulta = (string) $cepKH -> resultado_txt;
 
     if ($resultadoDaConsulta == 'sucesso - cep completo' ||$resultadoDaConsulta == 'sucesso - cep único' ) { // acho que o WS da kinghost retorna > 0 em casos de sucesso :D
@@ -232,6 +230,15 @@ class AddressZipcodesController extends AddressAppController {
 
   public function setSearchZipcodeContain() {
     $this -> AddressZipcode -> contain('City.name', 'City.State.abbreviation', 'Neighborhood.name');
+  }
+
+  public function get($id) {
+    if(isset($this->params['requested'])) {
+      $zip = $this -> AddressZipcode -> findById($id);
+      $zip['Zipcode'] = $zip['AddressZipcode'];
+      unset($zip['AddressZipcode']);
+      return $zip;
+    }
   }
 }
 ?>
