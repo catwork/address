@@ -3,6 +3,7 @@
 $useDefaulCSS = isset($useDefaulCSS) ? $useDefaulCSS : true;
 $header = isset($header) ? $header : 'Localização';
 $required = isset($required) ? $required : true;
+$requiredClasses = '';
 $divClasses = '';
 
 if ($required) {
@@ -33,9 +34,11 @@ echo $form->input($scope. 'Address.id', array('type' => 'hidden'));
 
 echo $form -> input($scope. 'Address.zipcode_id', array('type' => 'hidden'));
 
+$postalCodeRequiredMessage = $required ? "{messages:{required:'O CEP deve ser especificado.'}}" : '';
+
 echo $form->input($scope. 'Address.Zipcode.postal_code', array(
   'label' => 'CEP',
-  'class' => "address-zipcode-input $requiredClasses",
+  'class' => "address-zipcode-input $requiredClasses $postalCodeRequiredMessage",
   'div' => "address-zipcode-input-wrapper $divClasses",
   'label' => 'CEP',
 ));
@@ -55,32 +58,40 @@ echo $form -> input($scope . 'Address.Zipcode.City.State.Country.id', array(
   'div' => "address-country-input-wrapper $divClasses"
 ));
 
+$cityRequiredMessage = $required ? "{messages:{required:'A cidade deve ser especificada.'}}" : '';
+
 echo $form -> input($scope . 'Address.Zipcode.City.name', array(
   'type' => 'text',
   'readonly' => true,
   'label' => 'Cidade',
-  'class' => "address-city-input $requiredClasses",
+  'class' => "address-city-input $requiredClasses $cityRequiredMessage",
   'div' => "address-city-input-wrapper $divClasses"
 ));
+
+$stateRequiredMessage = $required ? "{messages:{required:'O estado deve ser especificado.'}}" : '';
 
 echo $form -> input($scope . 'Address.Zipcode.City.State.abbreviation', array(
   'type' => 'text',
   'readonly' => true,
   'label' => 'Estado',
-  'class' => "address-state-input $requiredClasses",
+  'class' => "address-state-input $requiredClasses $stateRequiredMessage",
   'div' => "address-state-input-wrapper $divClasses"
 ));
+
+$neighborhoodRequiredMessage = $required ? "{messages:{required:'O bairro deve ser especificado.'}}" : '';
 
 echo $form -> input($scope . 'Address.Zipcode.Neighborhood.name', array(
   'readonly' => true,
   'type' => 'text',
   'label' => 'Bairro',
-  'class' => "address-neighborhood-input $requiredClasses",
+  'class' => "address-neighborhood-input $requiredClasses $neighborhoodRequiredMessage",
   'div' => "address-neighborhood-input-wrapper $divClasses"
 ));
 
+$streetRequiredMessage = $required ? "{messages:{required:'O logradouro deve ser especificado.'}}" : '';
+
 echo $form->input($scope . 'Address.Zipcode.street', array(
-  'class' => "address-street-input $requiredClasses ",
+  'class' => "address-street-input $requiredClasses $streetRequiredMessage",
   'readonly' => true,
   'label' => 'Logradouro',
   'div' => "address-street-input-wrapper $divClasses"
