@@ -7,8 +7,14 @@ if ($asFieldset) { ?>
 <fieldset>
   <legend>Localização</legend>
 <dl>
-  <?php } ?>
-  
+  <?php
+  }
+
+  if (empty($address['Zipcode']['postal_code'])) {
+    echo "Sem endereço";
+  }
+  else {
+  ?>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'CEP' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
   <?php echo $address['Zipcode']['postal_code']; ?>
@@ -46,7 +52,8 @@ if ($asFieldset) { ?>
 </dd>
 
 <?php
-
+  }
+  
 if ($asFieldset) { ?>
 </dl>
 </fieldset>
