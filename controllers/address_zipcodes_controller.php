@@ -28,9 +28,9 @@ class AddressZipcodesController extends AddressAppController {
         $this -> setSearchZipcodeContain();
         $zipcode = $this -> AddressZipcode -> find('first',  $this -> searchOptions);
 
-          if ($zipcode == false) {
-            $zipcode = $this -> thirdPartySearch($search);
-          }
+        if ($zipcode == false) {
+          $zipcode = $this -> thirdPartySearch($search);
+        }
       }
     }
 
@@ -234,6 +234,7 @@ class AddressZipcodesController extends AddressAppController {
 
   public function get($id) {
     if(isset($this->params['requested'])) {
+      $this -> AddressZipcode -> contain('City.State.Country.name', 'Neighborhood');
       $zip = $this -> AddressZipcode -> findById($id);
       $zip['Zipcode'] = $zip['AddressZipcode'];
       unset($zip['AddressZipcode']);

@@ -10,6 +10,13 @@ if ($asFieldset) { ?>
   <?php
   }
 
+  if (empty($address['Zipcode']) && !empty($address['zipcode_id'])) {
+    $zip = $this->requestAction('address/address_zipcodes/get/' . $address['zipcode_id']);
+    $address['Zipcode'] = $zip['Zipcode'];
+    $address['Zipcode']['Neighborhood'] = $zip['Neighborhood'];
+    $address['Zipcode']['City'] = $zip['City'];
+  }
+
   if (empty($address['Zipcode']['postal_code'])) {
     echo "Sem endereço";
   }
