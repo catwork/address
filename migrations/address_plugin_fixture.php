@@ -103,6 +103,15 @@ class AddressPluginFixture extends AppMigration {
  *
  */
 	function down() {
+    $this -> Country = $this -> getModel('address_countries');
+    $this -> State = $this -> getModel('address_states');
+    $this -> City = $this -> getModel('address_cities');
+    $this -> Neighborhood = $this -> getModel('address_neighborhoods');
+
+    $this -> Country -> deleteAll(array('1' => '1'));
+    $this -> State -> deleteAll(array('1' => '1'));
+    $this -> City -> deleteAll(array('1' => '1'));
+    $this -> Neighborhood -> deleteAll(array('1' => '1'));
 	}
 }
 
