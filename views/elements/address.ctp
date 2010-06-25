@@ -30,6 +30,15 @@ $javascript->link(array('/address/address_zipcodes/elementjs/1'), false);
 
 $scope = !empty($scope) ? $scope . '.' : '';
 
+if (empty($scope)) {
+  if ($this -> params['action'] == 'add' && isset($addScope)) {
+    $scope = $addScope;
+  }
+  else if ($this -> params['action'] == 'edit' && isset($editScope)) {
+    $scope = $editScope;
+  }
+}
+
 echo $form->input($scope. 'Address.id', array('type' => 'hidden'));
 
 echo $form -> input($scope. 'Address.zipcode_id', array('type' => 'hidden'));
