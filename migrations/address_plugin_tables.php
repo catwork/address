@@ -9,6 +9,8 @@ class AddressPluginTables extends AppMigration {
           'address_addresses' => array(
                           'number' => array('type' => 'string', 'length' => 11),
                           'more' => array('type' => 'string', 'length' => 255),
+                          'neighborhood' = array('type' => 'string', 'length' => 128),
+                          'street' = array('type' => 'string', 'length' => 128),
                           'zipcode_id' => array('type' => 'integer', 'null' => false)
           ),
           'address_zipcodes' => array(
