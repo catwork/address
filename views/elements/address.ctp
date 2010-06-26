@@ -89,8 +89,7 @@ echo $form -> input($scope . 'Address.Zipcode.City.State.abbreviation', array(
 
 $neighborhoodRequiredMessage = $required ? "{messages:{required:'O bairro deve ser especificado.'}}" : '';
 
-echo $form -> input($scope . 'Address.Zipcode.Neighborhood.name', array(
-  'readonly' => true,
+echo $form -> input($scope . 'Address.neighborhood', array(
   'type' => 'text',
   'label' => 'Bairro',
   'class' => "address-neighborhood-input $requiredClasses $neighborhoodRequiredMessage",
@@ -99,9 +98,8 @@ echo $form -> input($scope . 'Address.Zipcode.Neighborhood.name', array(
 
 $streetRequiredMessage = $required ? "{messages:{required:'O logradouro deve ser especificado.'}}" : '';
 
-echo $form->input($scope . 'Address.Zipcode.street', array(
+echo $form->input($scope . 'Address.street', array(
   'class' => "address-street-input $requiredClasses $streetRequiredMessage",
-  'readonly' => true,
   'label' => 'Logradouro',
   'div' => "address-street-input-wrapper $divClasses"
 ));

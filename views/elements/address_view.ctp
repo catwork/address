@@ -42,9 +42,14 @@ if ($asFieldset) { ?>
   <?= $address['Zipcode']['City']['name'] ?>
   &nbsp;
 </dd>
+<dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Bairro' ?></dt>
+<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+  <?= empty($address['neighborhood']) ? $address['Zipcode']['Neighborhood']['name'] : $address['neighborhood'] ?>
+  &nbsp;
+</dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Rua'); ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?php echo $address['Zipcode']['street']; ?>
+  <?=  empty($address['street']) ? $address['Zipcode']['street'] : $address['street']; ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Número'); ?></dt>
