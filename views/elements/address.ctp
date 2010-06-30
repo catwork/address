@@ -32,10 +32,10 @@ $scope = !empty($scope) ? $scope . '.' : '';
 
 if (empty($scope)) {
   if ($this -> params['action'] == 'add' && isset($addScope)) {
-    $scope = $addScope;
+    $scope = $addScope . '.';
   }
   else if ($this -> params['action'] == 'edit' && isset($editScope)) {
-    $scope = $editScope;
+    $scope = $editScope . '.';
   }
 }
 
