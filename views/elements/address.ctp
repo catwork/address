@@ -3,6 +3,7 @@
 $useDefaulCSS = isset($useDefaulCSS) ? $useDefaulCSS : true;
 $header = isset($header) ? $header : 'Localização';
 $required = isset($required) ? $required : true;
+$fieldsetClasses = isset($fieldsetClasses) ? $fieldsetClasses : '';
 $requiredClasses = '';
 $divClasses = '';
 
@@ -17,7 +18,7 @@ if ($useDefaulCSS) {
 
 ?>
 
-<fieldset class="address-form">
+<fieldset class="address-form <?php echo $fieldsetClasses; ?>">
 <?php
 
 if (!empty($header)) {
