@@ -1,4 +1,10 @@
 <div class="zipcodes index">
+  <?php
+  echo $this->Form->create('AddressZipcode', array('action' => 'index'));
+  echo $this->Form->input('postal_code', array('label' => 'CEP', 'div' => 'input text', 'class' => 'address-zipcode-input'));
+  echo $this->Form->end('Buscar');
+  ?>
+  
   <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $paginator->sort('Bairro', 'neighborhood_id');?></th>

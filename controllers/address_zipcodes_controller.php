@@ -7,6 +7,11 @@ class AddressZipcodesController extends AddressAppController {
   
   public function index() {
     $this -> AddressZipcode -> recursive = 3;
+
+    if (!empty($this -> data['AddressZipcode']['postal_code']) && preg_match('/^\d\d\d\d\d-\d\d\d$/', $this -> data['AddressZipcode']['postal_code'])) {
+      $this -> paginate['conditions']['AddressZipcode.postal_code'] = $this -> data['AddressZipcode']['postal_code'];
+    }
+    
     $this->set('zipcodes', $this->paginate('AddressZipcode'));
   }
 
