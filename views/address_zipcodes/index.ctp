@@ -1,7 +1,7 @@
 <div class="zipcodes index">
   <?php
   echo $this->Form->create('AddressZipcode', array('action' => 'index'));
-  echo $this->Form->input('postal_code', array('label' => 'CEP', 'div' => 'input text', 'class' => 'address-zipcode-input'));
+  echo $this->Form->input('postal_code', array('label' => 'CEP (Formato: xxxxx-xxx)', 'div' => 'input text', 'class' => 'address-zipcode-input'));
   echo $this->Form->end('Buscar');
   ?>
   
