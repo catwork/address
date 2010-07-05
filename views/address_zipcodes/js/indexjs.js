@@ -1,5 +1,5 @@
 $(function() {
-  $('#ZipcodeValor').mask('99999-999');
+  $('#AddressZipcodePostalCode').mask('99999-999');
 });
 
 
