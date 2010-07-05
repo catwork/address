@@ -1,8 +1,5 @@
 <?php
-
-$javascript->link(array('/address/address_zipcodes/formjs/1'), false);
 echo $html->css(array('/address/css/address'));
-
 ?>
 
 <div class="zipcodes form">
