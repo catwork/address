@@ -195,9 +195,14 @@ class AddressZipcodesController extends AddressAppController {
         $neighborhood = $this -> AddressZipcode -> Neighborhood -> save(array('name' => $neighborhoodName,
                                                                               'city_id' => $city['City']['id']
         ));
+
+        $neighborhoodId = $this -> AddressZipcode -> Neighborhood -> id;
+      }
+      else {
+        $neighborhoodId = $neighborhood['Neighborhood']['id'];
       }
 
-      $neighborhoodId = $neighborhood['Neighborhood']['id'];
+      
     }
 
     $this -> AddressZipcode -> create();
