@@ -26,6 +26,7 @@ $(function(){
 
         addressSearchCepTriggerCurrentParent.find('[name*=zipcode_id]').val(data.AddressZipcode.id);
         addressSearchCepTriggerCurrentParent.find('.address-city-input').val(data.City.name);
+        addressSearchCepTriggerCurrentParent.find('[name*=state_id]').val(data.City.state_id);
         addressSearchCepTriggerCurrentParent.find('.address-state-input').val(data.City.State.abbreviation);
         addressSearchCepTriggerCurrentParent.find('.address-neighborhood-input').val(data.Neighborhood.name);
         addressSearchCepTriggerCurrentParent.find('.address-street-input').val(data.AddressZipcode.street);

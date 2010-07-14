@@ -78,6 +78,10 @@ echo $form -> input($scope . 'Address.Zipcode.City.name', array(
   'div' => "address-city-input-wrapper $divClasses"
 ));
 
+echo $form -> input($scope . 'Address.Zipcode.City.state_id', array(
+  'type' => 'hidden',
+));
+
 $stateRequiredMessage = $required ? "{messages:{required:'O estado deve ser especificado.'}}" : '';
 
 echo $form -> input($scope . 'Address.Zipcode.City.State.abbreviation', array(
