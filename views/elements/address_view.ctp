@@ -17,39 +17,55 @@ if ($asFieldset) { ?>
     $address['Zipcode']['City'] = $zip['City'];
   }
 
-  if (empty($address['Zipcode']['postal_code'])) {
+  if (empty($address['Zipcode']['postal_code']) && empty($address['city']) && empty($address['state'])) {
     echo "Sem endereço";
   }
   else {
   ?>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'CEP' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?php echo $address['Zipcode']['postal_code']; ?>
+  <?php echo !empty($address['Zipcode']['postal_code']) ? $address['Zipcode']['postal_code'] : 'Não definido'; ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'País'; ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?php echo $address['Zipcode']['City']['State']['Country']['name'] ?>
+  <?php echo !empty($address['Address']['City']['State']['Country']['name']) ? $address['Address']['City']['State']['Country']['name'] : 'Brasil'?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Estado' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?php echo $address['Zipcode']['City']['State']['name']; ?>
+  <?php echo empty($address['state']) ? $address['Zipcode']['City']['State']['name'] : $address['state']; ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Cidade' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?= $address['Zipcode']['City']['name'] ?>
+  <?= empty($address['city']) ? $address['Zipcode']['City']['name'] : $address['city'] ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Bairro' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?= empty($address['neighborhood']) ? $address['Zipcode']['Neighborhood']['name'] : $address['neighborhood'] ?>
+  <?php
+  if (!empty($address['neighborhood']))
+    echo $address['neighborhood'];
+  else if (!empty($address['Zipcode']['Neighborhood']['name']))
+    echo $address['Zipcode']['Neighborhood']['name'];
+  else {
+    echo 'Não definido';
+  }
+  ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Rua'); ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?=  empty($address['street']) ? $address['Zipcode']['street'] : $address['street']; ?>
+  <?php
+  
+  if (!empty($address['street']))
+    echo $address['street'];
+  else if (!empty($address['Zipcode']['street']))
+    echo $address['Zipcode']['street'];
+  else
+    echo 'Não definida'
+  ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Número'); ?></dt>

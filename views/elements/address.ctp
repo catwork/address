@@ -70,9 +70,8 @@ echo $form -> input($scope . 'Address.Zipcode.City.State.Country.id', array(
 
 $cityRequiredMessage = $required ? "{messages:{required:'A cidade deve ser especificada.'}}" : '';
 
-echo $form -> input($scope . 'Address.Zipcode.City.name', array(
+echo $form -> input($scope . 'Address.city', array(
   'type' => 'text',
-  'readonly' => true,
   'label' => 'Cidade',
   'class' => "address-city-input $requiredClasses $cityRequiredMessage",
   'div' => "address-city-input-wrapper $divClasses"
@@ -84,9 +83,8 @@ echo $form -> input($scope . 'Address.Zipcode.City.state_id', array(
 
 $stateRequiredMessage = $required ? "{messages:{required:'O estado deve ser especificado.'}}" : '';
 
-echo $form -> input($scope . 'Address.Zipcode.City.State.abbreviation', array(
+echo $form -> input($scope . 'Address.state', array(
   'type' => 'text',
-  'readonly' => true,
   'label' => 'Estado',
   'class' => "address-state-input $requiredClasses $stateRequiredMessage",
   'div' => "address-state-input-wrapper $divClasses"
