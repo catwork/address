@@ -12,14 +12,14 @@ class AddressableBehavior extends ModelBehavior {
 		$data =& $model->data[$model->name];
 
     if ($model -> Address != null && !empty($data['Address'])) {
-      if (empty($data['Address']['zipcode_id'])) {
-        return false;
+      if (!empty($data['Address']['zipcode_id'])) {
+        $model -> Address -> create();
+        $model -> Address -> save($data['Address']);
+        $data['address_id'] =  $model -> Address -> id;
       }
-      
-      $model -> Address -> create();
-      $model -> Address -> save($data['Address']);
-      $data['address_id'] =  $model -> Address -> id;
     }
+
+    return true;
   }
 }
 ?>
