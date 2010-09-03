@@ -4,10 +4,7 @@ class AddressZipcode extends AddressAppModel {
   var $name = 'AddressZipcode';
   
 	var $validate = array(
-		'postal_code' => array(   'rule1' => array( 'rule' => 'notempty'),
-                              'rule2' => array( 'rule' => 'isUnique',
-                                                'message' => 'Este CEP já está cadastrado no sistema.'
-                          )),
+		'postal_code' => array('notempty', 'isUnique'),
     'city_id' => array('notempty'),
 	);
 
