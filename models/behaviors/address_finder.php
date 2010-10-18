@@ -19,32 +19,36 @@ class AddressFinderBehavior extends ModelBehavior {
         }
       }
 
-      $city = $data['Address']['city'];
-      $zipcodeCity = $data['Address']['Zipcode']['City']['name'];
-      
-      if (empty($city) && !empty($zipcodeCity)) {
-        $data['Address']['city'] = $zipcodeCity;
-      }
+      if (isset($data['Address']['city'])) {
+        $city = $data['Address']['city'];
+        $zipcodeCity = !empty($data['Address']['Zipcode']['City']['name']) ?
+                        $data['Address']['Zipcode']['City']['name'] : '';
 
-      $state = $data['Address']['state'];
-      $zipcodeState = $data['Address']['Zipcode']['City']['State']['abbreviation'];
+        if (empty($city) && !empty($zipcodeCity)) {
+          $data['Address']['city'] = $zipcodeCity;
+        }
 
-      if (empty($state) && !empty($zipcodeState)) {
-        $data['Address']['state'] = $zipcodeState;
-      }
+        $state = $data['Address']['state'];
+        $zipcodeState = !empty($data['Address']['Zipcode']['City']['State']['abbreviation']) ?
+                        $data['Address']['Zipcode']['City']['State']['abbreviation'] : '';
 
-      $neighborhood = $data['Address']['neighborhood'];
-      $zipcodeNeighborhood = $data['Address']['Zipcode']['Neighborhood']['name'];
+        if (empty($state) && !empty($zipcodeState)) {
+          $data['Address']['state'] = $zipcodeState;
+        }
 
-      if (empty($neighborhood) && !empty($zipcodeNeighborhood)) {
-        $data['Address']['neighborhood'] = $zipcodeNeighborhood;
-      }
-      
-      $street = $data['Address']['street'];
-      $zipcodeStreet = $data['Address']['Zipcode']['street'];
+        $neighborhood = $data['Address']['neighborhood'];
+        $zipcodeNeighborhood = !empty($data['Address']['Zipcode']['Neighborhood']['name']) ?
+                               $data['Address']['Zipcode']['Neighborhood']['name'] : '';
 
-      if (empty($street) && !empty($zipcodeStreet)) {
-        $data['Address']['street'] = $zipcodeStreet;
+        if (empty($neighborhood) && !empty($zipcodeNeighborhood)) {
+          $data['Address']['neighborhood'] = $zipcodeNeighborhood;
+        }
+
+        $street = $data['Address']['street'];
+
+        if (empty($street) && !empty($data['Address']['Zipcode']['street'])) {
+          $data['Address']['street'] = $data['Address']['Zipcode']['street'];
+        }
       }
 
 
