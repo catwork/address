@@ -34,12 +34,33 @@ if ($asFieldset) { ?>
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Estado' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?php echo empty($address['state']) ? $address['Zipcode']['City']['State']['name'] : $address['state']; ?>
+  <?php
+    $stateName = 'Erro. Por gentileza, atualize o cadastro.';
+
+    if (!empty($address['state'])) {
+      $stateName = $address['state'];
+    }
+    else if (!empty($address['Zipcode']['City']['State']['name'])) {
+      $stateName = $address['Zipcode']['City']['State']['name'];
+    }
+
+    echo $stateName;
+  ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Cidade' ?></dt>
 <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-  <?= empty($address['city']) ? $address['Zipcode']['City']['name'] : $address['city'] ?>
+  <?php
+  $cityName = 'Erro. Por gentileza, atualize o cadastro';
+
+  if (!empty($address['city']))
+   $cityName = $address['city'];
+  else if (!empty($address['Zipcode']['City']['name'])) {
+    $cityName = $address['Zipcode']['City']['name'];
+  }
+
+  echo $cityName;
+  ?>
   &nbsp;
 </dd>
 <dt<?php if ($i % 2 == 0) echo $class;?>><?= 'Bairro' ?></dt>
@@ -50,7 +71,7 @@ if ($asFieldset) { ?>
   else if (!empty($address['Zipcode']['Neighborhood']['name']))
     echo $address['Zipcode']['Neighborhood']['name'];
   else {
-    echo 'Não definido';
+    echo 'Erro. Por gentileza, atualize o cadastro';
   }
   ?>
   &nbsp;
